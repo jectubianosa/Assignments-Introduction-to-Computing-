@@ -1,0 +1,98 @@
+<html>
+<head>
+    <title>Assignment #4 - Simple Payroll Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .container {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            width: 300px;
+            background-color: #f4f4f4;
+        }
+        label, button {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .navbar {
+            display: flex;
+            background-color: #333;
+            padding: 10px;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            transition: background-color 0.3s;
+        }
+        .navbar a:hover {
+            background-color: #575757;
+        }
+        .content {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="conversion.html">Assignment #1</a>
+        <a href="IncomeTaxCalc.html">Assignment #2</a>
+        <a href="Factorial.html">Assignment #3</a>
+        <a href="SimplePayroll.html">Assignment #4</a>
+    </div>
+    <h1>Simple Payroll Calculator</h1>
+
+    <div class="container">
+        <label for="hourlyWage">Hourly Wage:</label>
+        <input type="number" id="hourlyWage" placeholder="Enter hourly wage">
+        
+        <label for="hoursWorked">Hours Worked:</label>
+        <input type="number" id="hoursWorked" placeholder="Enter hours worked">
+
+        <button onclick="calculatePayroll()">Calculate Payroll</button>
+
+        <h2>Results</h2>
+        <p id="grossPay"></p>
+        <p id="deductions"></p>
+        <p id="netPay"></p>
+        <p id="note">Note that Deduction is 10% of the Gross Pay due to taxes</p>
+    </div>
+
+    <script>
+        function calculatePayroll() {
+            const hourlyWage = parseFloat(document.getElementById("hourlyWage").value);
+            const hoursWorked = parseFloat(document.getElementById("hoursWorked").value);
+            let grossPay, deductions, netPay;
+
+            // Calculate Gross Pay
+            if (hoursWorked > 40) {
+                // Overtime calculation: 1.5 times the hourly wage for overtime hours
+                grossPay = (40 * hourlyWage) + ((hoursWorked - 40) * hourlyWage * 1.5);
+            } else {
+                grossPay = hoursWorked * hourlyWage;
+            }
+
+            
+            deductions = grossPay * 0.10;
+            netPay = grossPay - deductions;
+
+            // Display results
+            document.getElementById("grossPay").innerText = `Gross Pay: $${grossPay.toFixed(2)}`;
+            document.getElementById("deductions").innerText = `Deductions: $${deductions.toFixed(2)}`;
+            document.getElementById("netPay").innerText = `Net Pay: $${netPay.toFixed(2)}`;
+        }
+    </script>
+
+</body>
+</html>
