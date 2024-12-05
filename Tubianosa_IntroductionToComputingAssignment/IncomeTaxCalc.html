@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assignment #2 - Income Tax Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            background-color: #f4f7fa;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .container {
+            border: 1px solid #dcdcdc;
+            padding: 20px;
+            border-radius: 5px;
+            width: 400px;
+            background-color: white;
+        }
+        .input-group, .result-group {
+            margin: 10px 0;
+        }
+        label, button {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+        }
+        input[type="number"], input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #dcdcdc;
+            border-radius: 5px;
+            text-align: right;
+        }
+        .result-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar {
+            display: flex;
+            background-color: #333;
+            padding: 10px;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            transition: background-color 0.3s;
+        }
+        .navbar a:hover {
+            background-color: #575757;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="conversion.html">Assignment #1</a>
+        <a href="IncomeTaxCalc.html">Assignment #2</a>
+        <a href="Factorial.html">Assignment #3</a>
+        <a href="SimplePayroll.html">Assignment #4</a>
+    </div>
+    <h1>Income Tax Calculator</h1>
+    <div class="container">
+        <div class="input-group">
+            <label for="income">Monthly Taxable Income (₱)</label>
+            <input type="number" id="income" placeholder="Enter monthly taxable income">
+        </div>
+        <button onclick="calculateTax()">Calculate</button>
+        <h2>Computation Result</h2>
+        <div class="result-group">
+            <div class="result-box">
+                <label>Income Tax</label>
+                <input type="text" id="incomeTax" readonly>
+            </div>
+            <div class="result-box">
+                <label>Net Pay After Tax</label>
+                <input type="text" id="netPayAfterTax" readonly>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calculateTax() {
+            const income = parseFloat(document.getElementById("income").value) * 12; // Convert monthly to annual income
+
+            if (isNaN(income) || income <= 0) {
+                alert("Please enter a valid income.");
+                return;
+            }
+
+            let tax = 0;
+
+            if (income > 8000000) {
+                tax = 2410000 + 0.35 * (income - 8000000);
+            } 
+            else if (income > 2000000) {
+                tax = 490000 + 0.32 * (income - 2000000);
+            } 
+            else if (income > 800000) {
+                tax = 130000 + 0.30 * (income - 800000);
+            } 
+            else if (income > 400000) {
+                tax = 30000 + 0.25 * (income - 400000);
+            } 
+            else if (income > 250000) {
+                tax = 0.20 * (income - 250000);
+            }
+
+            const annualNetIncome = income - tax;
+            const monthlyNetIncome = annualNetIncome / 12;
+
+            // Display results
+            document.getElementById("incomeTax").value = `₱ ${tax.toFixed(2)}`;
+            document.getElementById("netPayAfterTax").value = `₱ ${monthlyNetIncome.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
